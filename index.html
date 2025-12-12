@@ -4,63 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Полина</title>
+
     <style>
         body {
-            background: #fff;
+            background: #000;
+            color: #ff69b4;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .photo-container {
+            margin-top: 40px;
+            border: 4px solid #ff69b4;
+            padding: 8px;
+            border-radius: 20px;
+            display: inline-block;
+            cursor: pointer;
+            position: relative;
         }
 
         img {
             width: 300px;
             border-radius: 15px;
-            cursor: pointer;
         }
 
         .heart {
-            position: absolute;
-            font-size: 40px;
-            animation: fly 1s ease-out forwards;
+            position: fixed;
+            font-size: 30px;
             pointer-events: none;
+            animation: fly 1.2s ease-out forwards;
         }
 
         @keyframes fly {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-80px) scale(1.8); }
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-150px) scale(1.8) rotate(40deg);
+            }
         }
 
         h1 {
             margin-top: 20px;
+            color: #ff69b4;
+            text-shadow: 0 0 10px #ff69b4;
         }
     </style>
 </head>
+
 <body>
 
-    <img src="photo_2025-12-05_20-11-38.jpg" id="photo">
+    <div class="photo-container" id="photoBox">
+        <img src="photo_2025-12-05_20-11-38.jpg" id="photo">
+    </div>
+
     <h1>Полина</h1>
 
     <script>
-        const img = document.getElementById("photo");
+        const photo = document.getElementById("photo");
+        const box = document.getElementById("photoBox");
 
-        img.addEventListener("click", function (event) {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.textContent = "❤️";
+        box.addEventListener("click", function (event) {
+            for (let i = 0; i < 6; i++) {                      // много сердечек
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
 
-            // позиция сердечка на месте клика
-            heart.style.left = event.clientX - 20 + "px";
-            heart.style.top = event.clientY - 20 + "px";
+                heart.textContent = ["❤️", "💖", "💗", "💕"][Math.floor(Math.random() * 4)];
 
-            document.body.appendChild(heart);
+                // случайное направление
+                const offsetX = (Math.random() - 0.5) * 100;
+                const offsetY = (Math.random() - 0.5) * 20;
 
-            // удаляем через секунду
-            setTimeout(() => {
-                heart.remove();
-            }, 1000);
+                heart.style.left = event.clientX + offsetX + "px";
+                heart.style.top = event.clientY + offsetY + "px";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 1200);
+            }
         });
     </script>
 
