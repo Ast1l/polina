@@ -6,36 +6,63 @@
     <title>Полина</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
+            background: #fff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
         }
+
         img {
-            max-width: 350px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px #ff69b4;
-            margin-bottom: 20px;
+            width: 300px;
+            border-radius: 15px;
+            cursor: pointer;
         }
+
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            animation: fly 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fly {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1.8); }
+        }
+
         h1 {
-            font-size: 3em;
-            color: #ff69b4;
-            text-shadow: 0 0 20px #ff69b4;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- ТВОЁ ФОТО -->
-    <img src="photo_2025-12-05_20-11-38.jpg" alt="Polina">
-
+    <img src="photo_2025-12-05_20-11-38.jpg" id="photo">
     <h1>Полина</h1>
+
+    <script>
+        const img = document.getElementById("photo");
+
+        img.addEventListener("click", function (event) {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.textContent = "❤️";
+
+            // позиция сердечка на месте клика
+            heart.style.left = event.clientX - 20 + "px";
+            heart.style.top = event.clientY - 20 + "px";
+
+            document.body.appendChild(heart);
+
+            // удаляем через секунду
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        });
+    </script>
 
 </body>
 </html>
